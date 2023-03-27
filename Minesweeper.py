@@ -20,5 +20,20 @@ class Board:
             if board[row][col] == '*':
                 continue
 
+            board[row][col] = '*'
+            bombs_planted += 1
+        
+        return board
+    
+    def assign_values_to_board(self):
+        for r in range(self.dim_size):
+            for c in range(self.dim_size):
+                if self.board[r][c] == '*':
+                    continue
+                self.board[r][c] = self.get_num_neighboring_bombs(r,c)
+
+    def get_num_neighboring_bombs(self, row, col):
+        pass
+
 def play(dim_size=10, num_bombs=10):
     pass
