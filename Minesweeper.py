@@ -74,6 +74,17 @@ class Board:
                     max(columns, key = len)
                 )
             )
+        
+        indices = [i for i in range(self.dim_size)]
+        indices_row = '   '
+        cells = []
+        for idx, col in enumerate(indices):
+            format = '%-' + str(widths[idx]) + "s"
+            cells.append(format % (col))
+        indices_row += '  '.join(cells)
+        indices_row += '  \n'
+
+        
 def play(dim_size=10, num_bombs=10):
     board = Board(dim_size, num_bombs)
     pass
