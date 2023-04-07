@@ -111,3 +111,12 @@ def play(dim_size=10, num_bombs=10):
             print("Invalid location. Try another spot.")
             continue
         safe = board.dig(row, col)
+        if not safe:
+            break
+
+        if safe:
+            print("You Won!")
+        else:
+            print("GAME OVER")
+            board.dug = [(r,c) for r in range(board.dim_size) for c in range(board.dim_size)]
+            print(board)
