@@ -6,6 +6,7 @@ class Board:
         self.dim_size = dim_size
         self.num_bombs = num_bombs
         self.board = self.make_new_board()
+        self.assign_values_to_board()
         self.dug = set()
 
     def make_new_board(self):
@@ -34,12 +35,14 @@ class Board:
 
     def get_num_neighboring_bombs(self, row, col):
         num_neighboring_bombs = 0
-        for r in range(max(0,row-1), min(self.dim_size-1, (row+1)+1)):
-            for c in range(max(0, col-1), min(self.dim_size-1, (col+1)+1)):
+        for r in range(max(0,row-1), min(self.dim_size-1, row+1)+1):
+            for c in range(max(0, col-1), min(self.dim_size-1, col+1)+1):
                 if r == row and c == col:
                     continue
                 if self.board[r][c] == '*':
                     num_neighboring_bombs += 1
+        
+        return num_neighboring_bombs
 
     def dig(self,row,col):
         self.dug.add((row,col))
@@ -65,15 +68,11 @@ class Board:
                 else:
                     visible_board[row][col] = ' '
                 
-        string_rep = ' '
+        string_rep = ''
         widths = []
         for idx in range(self.dim_size):
             columns = map(lambda x: x[idx], visible_board)
-            widths.append(
-                len(
-                    max(columns, key = len)
-                )
-            )
+            widths.append(len(max(columns, key = len)))
         
         indices = [i for i in range(self.dim_size)]
         indices_row = '   '
@@ -114,9 +113,12 @@ def play(dim_size=10, num_bombs=10):
         if not safe:
             break
 
-        if safe:
-            print("You Won!")
-        else:
-            print("GAME OVER")
-            board.dug = [(r,c) for r in range(board.dim_size) for c in range(board.dim_size)]
-            print(board)
+    if safe:
+        print("You Won!")
+    else:
+        print("GAME OVER")
+        board.dug = [(r,c) for r in range(board.dim_size) for c in range(board.dim_size)]
+        print(board)
+
+if __name__ == '__main__':
+    play()
