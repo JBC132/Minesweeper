@@ -2,7 +2,7 @@
 
 Created Minesweeper game using Python3
 
-![](result.png)
+![](result.PNG)
 
 ## Dependency
 
